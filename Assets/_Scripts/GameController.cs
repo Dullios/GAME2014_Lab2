@@ -9,37 +9,61 @@ public class GameController : MonoBehaviour
     public TMP_Text LivesLabel;
     public TMP_Text ScoreLabel;
 
+    private bool hasSafeArea;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        hasSafeArea = (Screen.width == Screen.safeArea.width && Screen.height == Screen.safeArea.height) ? false : true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (Input.deviceOrientation)
+        // Setup with Samsung Galaxy S10+ spacing
+        switch (Screen.orientation)
         {
-            case DeviceOrientation.Portrait:
+            case ScreenOrientation.Portrait:
                 //SceneLabel.text = "Portrait";
 
-                LivesLabel.rectTransform.anchoredPosition = new Vector2(250, -220);
-                ScoreLabel.rectTransform.anchoredPosition = new Vector2(-350, -220);
+                if (hasSafeArea)
+                {
+                    LivesLabel.rectTransform.anchoredPosition = new Vector2(250, -200);
+                    ScoreLabel.rectTransform.anchoredPosition = new Vector2(-350, -200);
+                }
+                else
+                {
+                    LivesLabel.rectTransform.anchoredPosition = new Vector2(250, -80);
+                    ScoreLabel.rectTransform.anchoredPosition = new Vector2(-350, -80);
+                }
                 break;
-            case DeviceOrientation.LandscapeLeft:
+            case ScreenOrientation.LandscapeLeft:
                 //SceneLabel.text = "Landscape Left";
 
-                LivesLabel.rectTransform.anchoredPosition = new Vector2(370, -80);
-                ScoreLabel.rectTransform.anchoredPosition = new Vector2(-350, -80);
+                if (hasSafeArea)
+                {
+                    LivesLabel.rectTransform.anchoredPosition = new Vector2(370, -80);
+                    ScoreLabel.rectTransform.anchoredPosition = new Vector2(-350, -80);
+                }
+                else
+                {
+                    LivesLabel.rectTransform.anchoredPosition = new Vector2(250, -80);
+                    ScoreLabel.rectTransform.anchoredPosition = new Vector2(-350, -80);
+                }
                 break;
-            case DeviceOrientation.LandscapeRight:
+            case ScreenOrientation.LandscapeRight:
                 //SceneLabel.text = "Landscape Right";
 
-                LivesLabel.rectTransform.anchoredPosition = new Vector2(250, -80);
-                ScoreLabel.rectTransform.anchoredPosition = new Vector2(-480, -80);
-                break;
-            case DeviceOrientation.Unknown:
-                //SceneLabel.text = "Unknown";
+                if (hasSafeArea)
+                {
+                    LivesLabel.rectTransform.anchoredPosition = new Vector2(250, -80);
+                    ScoreLabel.rectTransform.anchoredPosition = new Vector2(-480, -80);
+                }
+                else
+                {
+                    LivesLabel.rectTransform.anchoredPosition = new Vector2(250, -80);
+                    ScoreLabel.rectTransform.anchoredPosition = new Vector2(-350, -80);
+                }
                 break;
         }
     }
